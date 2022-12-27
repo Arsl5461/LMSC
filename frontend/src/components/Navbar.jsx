@@ -9,8 +9,6 @@ function Navbar() {
     const onclicked=()=>{
         dispatch(logout())
         dispatch(reset())
-
-        navigate("/")
     }
     const onclick=()=>{
 

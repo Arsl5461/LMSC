@@ -22,9 +22,7 @@ function Register() {
         if(isError){
             toast.error(message)
         }
-        if(isSuccess || user){
-navigate("/")
-}
+      
 dispatch(reset())
     },[user,isSuccess,isError,message,dispatch,navigate])
     const onChange=(e)=>{
@@ -36,7 +34,6 @@ setFormData((prevstate)=>({
     }
     const onSubmit=(e)=>{
 e.preventDefault();
-console.log("ARslan Akmal");
 if(password !==cpassword){
     toast.error("Password Does not match")
 }
@@ -46,6 +43,9 @@ else{
         email,
         password
     }
+    toast.success("User Registered Successfuly..Please Check your email.",{
+        position:'bottom-left'
+    })
     dispatch(register(userData))
 }
     }

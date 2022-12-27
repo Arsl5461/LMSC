@@ -26,5 +26,20 @@ res.status(401)
 throw new Error('Not Authorized No token')
 }
 })
+const verifyEmaill= async(req,res,next)=>{
+    try{
+        const user=await User.findOne({email:req.body.email})
+        if(user.isVerified){
+            res.json("User is Verified")
+            next()
+        }
+        else{
+            res.json("Your email is not verified.Please Check your email.");
+        }
+    }
+    catch(error){
+        console.log(error);
+    }
+  }
 
-module.exports={ protect }
+module.exports={ protect,verifyEmaill }

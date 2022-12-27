@@ -14,6 +14,12 @@ const userSchema=mongoose.Schema({
         type:String,
         required:[true,"Please add a Password"]
     },
+    emailToken:{
+        type:String,
+    },
+    isVerified:{
+        type:Boolean,
+    }
 },
 {
 timestamps:true

@@ -21,7 +21,7 @@ function Dashboard() {
       console.log(message);
     }
     if(!user){
-      navigate("/home")
+      navigate("/")
     }
     dispatch(getGoals())
 
