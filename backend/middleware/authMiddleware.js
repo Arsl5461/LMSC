@@ -30,8 +30,11 @@ const verifyEmaill= async(req,res,next)=>{
     try{
         const user=await User.findOne({email:req.body.email})
         if(user.isVerified){
-            res.json("User is Verified")
-            next()
+            res.json({
+                
+            })
+
+            next();
         }
         else{
             res.json("Your email is not verified.Please Check your email.");
@@ -41,5 +44,7 @@ const verifyEmaill= async(req,res,next)=>{
         console.log(error);
     }
   }
+  
+
 
 module.exports={ protect,verifyEmaill }

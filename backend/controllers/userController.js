@@ -23,17 +23,7 @@ var transporter=nodemailer.createTransport({
   }
 })
 const registerUser=asyncHandler(async(req,res)=>{
-var transporter=nodemailer.createTransport({
-  service:"gmail",
-  auth:{
-    user:"arxlan62@gmail.com",
-    pass:"lheyvubtkgabmhaa"
 
-  },
-  tls:{
-    rejectUnauthorized:false
-  }
-})
   const {name,email,password}=req.body
 
   
@@ -114,14 +104,12 @@ const verifyEmail=async(req,res)=>{
 //@route POST/api/users
 //@access PUBLIC
 
-
 const loginUser=asyncHandler(async(req,res)=>{
   const {email,password} = req.body
 
-
   const user = await User.findOne({email})
 
-  if(user && (await bcrypt.compare(password, user.password))){
+  if(user && (await bcrypt.compare(password, user.password)) && user.isVerified){
     res.json({
       _id:user.id,
       name:user.name,
@@ -131,7 +119,7 @@ const loginUser=asyncHandler(async(req,res)=>{
   }
   else{
       res.status(400)
-      throw new Error("Invalid Credentials")
+      throw new Error("Please Check Your Email.Are you verified?")
     }   
 })
 const forgotPassword=async(req,res)=>{
@@ -226,6 +214,106 @@ newPasswordReset.save().then(()=>{
   })
 })
 }
+const passwordReset=async(req,res)=>{
+let {userId,resetString,newPassword}=req.body;
+Reset.find({userId})
+.then(result=>{
+  if(result.length > 0){
+    // Password Reset record exist
+    const {expiresAt}=result[0]
+    const hashedResetString=result[0].resetString
+    if(expiresAt<Date.now()){
+      Reset.deleteOne({userId})
+      .then(()=>
+        res.json({
+status:"FAILED",
+message:"Password Reset Link is expired."
+        })
+      )
+      .catch(error=>{
+//deletion failed
+console.log(error);
+res.json({
+  status:"FAILED",
+  message:"CLEARING PASSWORD RECORD FAILED"
+})
+      })}
+      else{
+        //valid reset record exists so we validate
+        // First compare the hashed reset string
+        bcrypt.compare(resetString,hashedResetString)
+        .then((result)=>{
+          if(result){
+const saltRounds=10;
+bcrypt.hash(newPassword,saltRounds)
+.then(hashedNewPassword=>{
+  //update user password
+  User.updateOne({_id:userId},{password:hashedNewPassword})
+  .then(()=>{
+  Reset.deleteOne({userId})
+  .then(()=>{
+//both user record and reset record updated
+res.json({
+  status:"SUCCESS",
+  message:"Password has been reset successfuly"
+})
+  })
+  .catch(error=>{
+    console.log(error);
+    res.json({
+      status:"Failed",
+      message:"An error occured"
+    })
+  })
+  })
+  .catch(error=>{
+    console.log(error);
+    res.json({
+      status:"FAILED",
+      message:"Updating user password failed"
+    })
+  })
+})
+.catch(error=>{
+  console.log(error);
+  res.json({
+    status:"Failed",
+    message:"An error occured while hashing the password"
+  })
+})
+          }
+          else{
+            res.json({
+              status:"Failed",
+              message:"Invalid password reset details passed"
+            })
+          }
+        })
+        .catch(error=>{
+          console.log(error);
+          res.json({
+            status:"Failed",
+            message:"Comparing Password Reset String Failed"
+          })
+        })
+      }
+  }
+  else{
+    //Password Reset Request not found
+    res.json({
+      status:"FAILED",
+      message:"Password reset request not found"
+    })
+  }
+})
+.catch(error=>{
+  console.log(error);
+  res.json({
+    status:"Failed",
+    message:"Checking for actually password reset fails"
+  })
+})
+}
 
 
 module.exports={
@@ -233,6 +321,8 @@ module.exports={
     loginUser,
     getMe,
     verifyEmail,
-    forgotPassword
+    forgotPassword,
+    passwordReset,
+  
 } 
 
