@@ -47,6 +47,7 @@ else{
         position:'bottom-left'
     })
     dispatch(register(userData))
+    dispatch(reset())
 }
     }
     if(isLoading){

@@ -22,9 +22,9 @@ var transporter = nodemailer.createTransport({
 	},
 });
 const registerUser = asyncHandler(async (req, res) => {
-	const { name, email, password } = req.body;
+	const { name, email, password, phone, city } = req.body;
 
-	if (!name || !email || !password) {
+	if (!name || !email || !password || !phone || !city) {
 		res.status(400);
 		throw new Error("Please add all fields");
 	}
@@ -43,6 +43,8 @@ const registerUser = asyncHandler(async (req, res) => {
 		name,
 		email,
 		password: hashedPassword,
+		phone,
+		city,
 		emailToken: crypto.randomBytes(64).toString("hex"),
 		isVerified: false,
 	});
