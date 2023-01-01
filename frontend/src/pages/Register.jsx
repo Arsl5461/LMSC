@@ -8,10 +8,12 @@ function Register() {
         name:"",
         email:'',
         password:"",
-        cpassword:""
+        cpassword:"",
+        phone:"",
+        city:"",
     }
     )
-    const {name,email,password,cpassword}=formData
+    const {name,email,password,cpassword,phone,city}=formData
 
     const navigate=useNavigate()
     const dispatch=useDispatch()
@@ -41,12 +43,15 @@ else{
     const userData={
         name,
         email,
-        password
+        password,
+        phone,
+        city
     }
     toast.success("User Registered Successfuly..Please Check your email.",{
         position:'bottom-left'
     })
     dispatch(register(userData))
+    
     dispatch(reset())
 }
     }
@@ -62,8 +67,11 @@ else{
 <form onSubmit={onSubmit}>
    <input type="text" className='form-control' value={name} name="name" placeholder='Enter Your name' onChange={onChange}></input>
    <input type="email" className='form-control' value={email} name="email" placeholder='Enter Your Email' onChange={onChange}></input>
+   <input type="number" className='form-control' value={phone} name="phone" placeholder='Enter Phone Number' onChange={onChange}></input>
+   <input type="text" className='form-control' value={city} name="city" placeholder='Enter your city' onChange={onChange}></input>
    <input type="password" className='form-control' value={password} name="password" placeholder='Enter Your Password' onChange={onChange}></input>
    <input type="password" className='form-control' value={cpassword} name="cpassword" placeholder='Please Confirm Your password' onChange={onChange}></input>
+
 <div className="form-group">
     <button type="submit" className="btn btn-block">Submit</button>
 </div>

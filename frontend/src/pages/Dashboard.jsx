@@ -31,9 +31,6 @@ function Dashboard() {
   return (
    <section className="heading">
     <h1>Welcome  {user && user.name}</h1>
-    <small>Add Blog post</small>
-   <GoalForm/>
-
    {goals.length > 0 ? (
     <div className='goals'>
     {goals.map((goal)=>(

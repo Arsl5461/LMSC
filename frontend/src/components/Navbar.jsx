@@ -17,16 +17,10 @@ function Navbar() {
   return (
    <div className="header">
     <div className="logo">
-        <Link to="/">Goal Setter</Link>
+        <Link to="/">ISLAMABAD LABORTORY</Link>
     </div>
     <ul>
     {user?<>
-        <li>
-            <button className='btn btn-block' onClick={onclick} >
-                Add Blog Post
-            </button>
-            
-        </li>
         <li>
             <button className='btn btn-block' onClick={onclicked} >
                 Logout
@@ -35,10 +29,19 @@ function Navbar() {
         </li>
     </>:<>
     <li>
+            <Link to="/">Home</Link>
+        </li>
+    <li>
+            <Link to="/about-us">About Us</Link>
+        </li>
+    <li>
+            <Link to="/contact-us">Contact Us</Link>
+        </li>
+    <li>
             <Link to="/login">Login</Link>
         </li>
         <li>
-            <Link to="/register">Register</Link>
+            <Link to="/register">SignUp</Link>
         </li>
     </>}
        

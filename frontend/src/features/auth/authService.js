@@ -5,6 +5,7 @@ const API_URl = "http://localhost:5000/api/users/";
 //REGISTER USER
 
 const register = async (userData) => {
+	console.log(userData);
 	const response = await axios.post(API_URl, userData);
 	return response.data;
 };
