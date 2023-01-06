@@ -12,12 +12,24 @@ const Tests = require("../model/testModel");
 //@desc Get All Goals
 //@route GET/api/allgoals
 //@access PUBLIC
-
+const options = {
+	// sort matched documents in descending order by rating
+	sort: { "createdAt": -1 },
+  };
 const getTests = asyncHandler(async (req, res) => {
-	const test = await Tests.find().sort().limit(3);
+	const test = await Tests.find(options).limit(3);
 
 	res.status(200).json(test);
 });
+const getAllTests = asyncHandler(async (req, res) => {
+	const test = await Tests.find();
+
+	res.status(200).json(test);
+});
+const getTestDetails=asyncHandler(async(req,res)=>{
+	const test=await Tests.findOne({_id:req.params.id})
+	res.status(200).json(test)
+})
 //@desc Set Goals
 //@route PUSH/api/goals
 //@access PRIVATE
@@ -29,7 +41,7 @@ const getTests = asyncHandler(async (req, res) => {
 // })
 
 const setTests = asyncHandler(async (req, res) => {
-	const { title, price,description } = req.body;
+	const { title, price, description } = req.body;
 	if (!title || !price) {
 		res.status(400);
 		throw new Error("Please add a title or price");
@@ -44,7 +56,7 @@ const setTests = asyncHandler(async (req, res) => {
 	const test = await Tests.create({
 		testname: title,
 		testprice: price,
-		description
+		description,
 		// body:req.body.body,
 		// category:req.body.category,
 		// user:req.user.id,
@@ -110,4 +122,6 @@ const setTests = asyncHandler(async (req, res) => {
 module.exports = {
 	setTests,
 	getTests,
+	getAllTests,
+	getTestDetails
 };

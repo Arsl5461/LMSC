@@ -3,8 +3,11 @@ import {useState} from "react"
 import { useSelector,useDispatch } from 'react-redux'
 import { getTests } from '../features/tests/testSlice';
 import { useEffect } from 'react';
+import {Link} from "react-router-dom"
+import { useParams } from 'react-router-dom';
 function Cards() {
     const dispatch=useDispatch();
+    const params=useParams();
     const { tests, isLoading, isError, isSuccess, message } = useSelector(
       (state) => state.test,
     );
@@ -28,7 +31,7 @@ console.log(tests);
     {item.description.substring(0,50)}
     </div>
     <div className='d-flex mt-3 justify-content-center '>
-    <button className='btn btn-outline-secondary'>Details</button>
+    <Link to={`/test/${item._id}`} className="btn btn-secondary"> Details</Link>
     </div>
                     </div>
         )
@@ -36,7 +39,7 @@ console.log(tests);
     })}
     </div>
     <div className='d-flex justify-content-center'>
-    <button className='btn btn-secondary'>View All</button>
+    <Link to={`/test/all`} className="btn btn-secondary mt-3"> View All</Link>
     </div>
   </div>
     <hr/>

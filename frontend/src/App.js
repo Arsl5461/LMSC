@@ -9,6 +9,8 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
+import AllTest from "./components/AllTest";
+import TestDetails from "./components/TestDetails";
 import "./Lab.css";
 
 function App() {
@@ -23,11 +25,16 @@ function App() {
 							path="/add-form"
 							element={<Dashboard />}
 						></Route>
-						<Route exact path="/" element={<Home />}></Route>
+						<Route path="/" element={<Home />}></Route>
 						<Route path="/about-us" element={<About />}></Route>
 						<Route path="/contact-us" element={<Contact />}></Route>
 						<Route path="/register" element={<Register />}></Route>
 						<Route path="/login" element={<Login />}></Route>
+						<Route
+							path="/test/:id"
+							element={<TestDetails />}
+						></Route>
+						<Route path="/test/all" element={<AllTest />}></Route>
 					</Routes>
 					<Footer />
 				</Router>
