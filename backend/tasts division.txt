@@ -3,20 +3,20 @@ Admin Panel
 -   Login (arslan)
 -   Test categories (CRUD) manage from admin panel (arslan)
 -   Assign categories to test while creating/updating a test. (arslan)
--   Add Description while creating/updating test (arslan)
+-   Add Description while creating/updating test (arslan) 
 -   Show category name in list of tests (arslan)
 -   Bookings list (Wasil)
--   Contact Us Listing (Wasil)
--   Settings (open time, close time, maximum tests in 1 hour) (Wasil)
+-   Contact Us Listing (Wasil) Done
+-   Settings (open time, close time, maximum tests in 1 hour) (Wasil) Done
 -
 
 Public Site:
 
--   Register (arslan)
--   Login (arslan)
+-   Register (arslan) Done
+-   Login (arslan) Done
 -   Login with Google (Wasil)
--   Contact Us (Wasil)
--   About Us (Wasil)
+-   Contact Us (Wasil) Done
+-   About Us (Wasil) Done
 -   Test List Page
 -   -   Filter with catgory, price max and minimum (arslan)
 -   -   Sort by price (high to low, low to high) (Wasil)

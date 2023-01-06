@@ -1,43 +1,42 @@
 import React from 'react'
 import {useState} from "react"
+import { useSelector,useDispatch } from 'react-redux'
+import { getTests } from '../features/tests/testSlice';
+import { useEffect } from 'react';
 function Cards() {
-    const [cardData]=useState([
-        {
-            "title":"COVID19 Testing Solutions",
-            "description":"Tests can be ordered easily by health plan or employer or through some employee.",
-            "btnText":"Request test"
-        },
-        {
-            "title":"I'm a Healthcare Provider",
-            "description":"Clinical testing partnerships with industry leaders to make patients have diagnostic..",
-            "btnText":"Registration"
-        },
-        {
-            "title":"I'm a Patient",
-            "description":"Focus on prevention & early identification of potential health conditions to offer suite..",
-            "btnText":"Appointment"
-        },
-    ])
+    const dispatch=useDispatch();
+    const { tests, isLoading, isError, isSuccess, message } = useSelector(
+      (state) => state.test,
+    );
+    useEffect(()=>{
+dispatch(getTests())
+console.log(tests);
+    },[])
   return (
     <>
     <div className='mt-3'>
         <div className='d-flex justify-content-evenly flex-wrap'>
-        {cardData.map((item,index)=>{
+        {tests?.map((item,index)=>{
         return(
-                <div className='card' key={index}>
+                <div className='card' key={item._id}>
 <div className='title p-2 mt-4'>
-    <h5><b>{item.title}</b></h5>
+    <h5><b>{item.testname}</b></h5>
+    <h5><b>{item.testprice}</b></h5>
+
     </div>
     <div className='description p-2'>
-    {item.description.trim(0,10)}
+    {item.description.substring(0,50)}
     </div>
     <div className='d-flex mt-3 justify-content-center '>
-    <button className='btn btn-outline-secondary'>{item.btnText}</button>
+    <button className='btn btn-outline-secondary'>Details</button>
     </div>
                     </div>
         )
         
     })}
+    </div>
+    <div className='d-flex justify-content-center'>
+    <button className='btn btn-secondary'>View All</button>
     </div>
   </div>
     <hr/>

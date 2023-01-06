@@ -53,7 +53,6 @@ function Explore() {
             "point3":"Cardiovascular health"
         },
     ])
-    console.log(explore);
   return (
     <div className='explore'>
     <div className='container'>

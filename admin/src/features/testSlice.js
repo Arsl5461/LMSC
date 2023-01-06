@@ -9,23 +9,33 @@ const initialState = {
 //Create New  Tests
 export const createNewTest = createAsyncThunk(
 	"createNewTest",
-	async (labData,thunkAPI) => {
+	async (labData, thunkAPI) => {
 		try {
 			return await testService.createTests(labData);
 		} catch (error) {
-			const message=(error.message && error.response.data && error.response.data.message) || error.message || error.toString()
-			return thunkAPI.rejectWithValue(message)
+			const message =
+				(error.message &&
+					error.response.data &&
+					error.response.data.message) ||
+				error.message ||
+				error.toString();
+			return thunkAPI.rejectWithValue(message);
 		}
 	},
 );
 export const getAllTest = createAsyncThunk(
 	"getAllTest",
-	async (_,thunkAPI) => {
+	async (_, thunkAPI) => {
 		try {
 			return await testService.getTests();
 		} catch (error) {
-			const message=(error.message && error.response.data && error.response.data.message) || error.message || error.toString()
-			return thunkAPI.rejectWithValue(message)
+			const message =
+				(error.message &&
+					error.response.data &&
+					error.response.data.message) ||
+				error.message ||
+				error.toString();
+			return thunkAPI.rejectWithValue(message);
 		}
 	},
 );
@@ -44,7 +54,7 @@ export const testsSlice = createSlice({
 			.addCase(createNewTest.fulfilled, (state, action) => {
 				state.isLoading = false;
 				state.isError = false;
-				state.tests = action.payload;
+				state.tests.push(action.payload);
 				state.isSuccess = true;
 			})
 			.addCase(createNewTest.rejected, (state, action) => {

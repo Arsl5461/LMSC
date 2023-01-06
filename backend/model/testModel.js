@@ -10,6 +10,9 @@ const newTest = mongoose.Schema(
 			type: String,
 			require: true,
 		},
+		description: {
+			type: String,
+		},
 		createdAt: {
 			type: Date,
 		},

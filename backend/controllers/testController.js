@@ -14,7 +14,7 @@ const Tests = require("../model/testModel");
 //@access PUBLIC
 
 const getTests = asyncHandler(async (req, res) => {
-	const test = await Tests.find();
+	const test = await Tests.find().sort().limit(3);
 
 	res.status(200).json(test);
 });
@@ -29,7 +29,7 @@ const getTests = asyncHandler(async (req, res) => {
 // })
 
 const setTests = asyncHandler(async (req, res) => {
-	const { title, price } = req.body;
+	const { title, price,description } = req.body;
 	if (!title || !price) {
 		res.status(400);
 		throw new Error("Please add a title or price");
@@ -44,6 +44,7 @@ const setTests = asyncHandler(async (req, res) => {
 	const test = await Tests.create({
 		testname: title,
 		testprice: price,
+		description
 		// body:req.body.body,
 		// category:req.body.category,
 		// user:req.user.id,

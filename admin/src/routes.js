@@ -19,6 +19,9 @@ import Dashboard from "views/Dashboard.js";
 import UserProfile from "views/UserProfile.js";
 import CreateTest from "views/CreateTest.js";
 import TableList from "views/TableList.js";
+import ContactList from "views/ContactList";
+import Setting from "views/Setting";
+
 import Typography from "views/Typography.js";
 import Icons from "views/Icons.js";
 import Notifications from "views/Notifications.js";
@@ -51,6 +54,22 @@ const dashboardRoutes = [
 		name: "Create Tests",
 		icon: "nc-icon nc-notes",
 		component: CreateTest,
+		layout: "/admin",
+	},
+
+	{
+		path: "/contactlist",
+		name: "Contact List",
+		icon: "nc-icon nc-notes",
+		component: ContactList,
+		layout: "/admin",
+	},
+
+	{
+		path: "/setting",
+		name: "Settings",
+		icon: "nc-icon nc-notes",
+		component: Setting,
 		layout: "/admin",
 	},
 	// {

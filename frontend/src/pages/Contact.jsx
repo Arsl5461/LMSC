@@ -4,28 +4,32 @@ import {useState,useEffect} from "react"
 import {useSelector,useDispatch} from "react-redux"
 import {useNavigate} from "react-router-dom"
 import {toast} from "react-toastify"
-import {register} from "../features/auth/authSlice"
+import {contacts,reset} from "../features/contact/contactSlice"
 import CounterImg from "../assets/counter.jpg"
 function Contact() {
-const [clientName,setclientName]=useState("")
-const [clientEmail,setclientEmail]=useState("")
-const [clientMessage,setclientMessage]=useState("")
+const [name,setclientName]=useState("")
+const [email,setclientEmail]=useState("")
+const [message,setclientMessage]=useState("")
   const navigate=useNavigate()
   const dispatch=useDispatch()
 
-  const {user,isLoading,isSuccess,isError,message}=useSelector((state)=>state.auth)
+  const {user,isLoading,isSuccess,isError}=useSelector((state)=>state.contact)
 
   useEffect(()=>{
       if(isError){
           toast.error(message)
       }
-    
-  },[user,isSuccess,isError,message,dispatch,navigate])
+      dispatch(reset())
+ 
+  },[user,isSuccess,isError,dispatch,navigate])
   
   const onSubmit=(e)=>{
 e.preventDefault();
 
-  dispatch(register({clientName,clientEmail,clientMessage}))
+  dispatch(contacts({name,email,message}))
+  setclientName("")
+  setclientEmail("")
+  setclientMessage("")
 }
   
   
@@ -48,9 +52,9 @@ To provide a comfortable and safe environment for our patients and employees, pl
     <h3>Contact us for Any </h3>
     <div className="form-group mt-3">
     <form onSubmit={onSubmit}>
-       <input type="text" className='form-control' value={clientName} name="name" placeholder='Enter Your name' onChange={(e)=>setclientName(e.target.value)}></input>
-       <input type="email" className='form-control' value={clientEmail} name="email" placeholder='Enter Your Email' onChange={(e)=>setclientEmail(e.target.value)}></input>
-      <textarea type="text" className='form-control' value={clientMessage} name="message" placeholder='Enter Your Message' onChange={(e)=>setclientMessage(e.target.value)}></textarea>
+       <input type="text" className='form-control' value={name} name="name" placeholder='Enter Your name' onChange={(e)=>setclientName(e.target.value)}></input>
+       <input type="email" className='form-control' value={email} name="email" placeholder='Enter Your Email' onChange={(e)=>setclientEmail(e.target.value)}></input>
+      <textarea type="text" className='form-control' value={message} name="message" placeholder='Enter Your Message' onChange={(e)=>setclientMessage(e.target.value)}></textarea>
     
     <div className="form-group d-flex justify-content-center mt-3">
         <button type="submit" className="btn btn-block w-50">Submit</button>

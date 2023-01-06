@@ -27,15 +27,18 @@ function CreateTest() {
 			console.log(message);
 		}
 		dispatch(getAllTest());
-	}, [tests,isError, message, dispatch]);
+	}, [ dispatch]);
 	const [title, setTitle] = useState();
 	const [price, setPrice] = useState();
+	const [description, setDescription] = useState();
+
 	console.log(tests);
 	const onSubmit = (e) => {
 		e.preventDefault();
-		dispatch(createNewTest({ title, price }));
+		dispatch(createNewTest({ title, price, description }));
 		setTitle("");
 		setPrice("");
+		setDescription("");
 	};
 
 	return (
@@ -74,6 +77,22 @@ function CreateTest() {
 													value={price}
 													onChange={(e) =>
 														setPrice(e.target.value)
+													}
+												></Form.Control>
+											</Form.Group>
+										</Col>
+										<Col className="pl-1" md="6">
+											<Form.Group>
+												<label>Description</label>
+												<Form.Control
+													placeholder="Enter Test Description"
+													type="text"
+													name="description"
+													value={description}
+													onChange={(e) =>
+														setDescription(
+															e.target.value,
+														)
 													}
 												></Form.Control>
 											</Form.Group>
@@ -125,6 +144,9 @@ function CreateTest() {
 												Test Price
 											</th>
 											<th className="border-0">
+												Description
+											</th>
+											<th className="border-0">
 												Delete Test
 											</th>
 											<th className="border-0">
@@ -138,6 +160,9 @@ function CreateTest() {
 												<tr key={item._id}>
 													<td>{item.testname}</td>
 													<td>{item.testprice}</td>
+													<td>
+														{item.description}
+													</td>
 													<td>
 														<Button
 															className="btn-fill pull-right mt-3"

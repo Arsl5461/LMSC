@@ -7,6 +7,11 @@ const dotenv = require("dotenv").config();
 const crypto = require("crypto");
 const nodemailer = require("nodemailer");
 const { v4: uuidv4 } = require("uuid");
+const { GoogleAuth, OAuth2Client } = require("google-auth-library");
+const { response } = require("express");
+const client = new OAuth2Client(
+	"894155198746-3vu7s6k2ii7db2c3m4cqmt7mibjkmptg.apps.googleusercontent.com",
+);
 
 //@desc Register Users
 //@route POST/api/users
@@ -331,6 +336,62 @@ const passwordReset = async (req, res) => {
 			});
 		});
 };
+
+ const googleLogin = (req, res) => {
+	console.log("Arslan Akmal");
+	const { tokenId } = req.body;
+
+	client.verifyIdToken({
+		idToken: tokenId,
+		audience:
+			"894155198746-3vu7s6k2ii7db2c3m4cqmt7mibjkmptg.apps.googleusercontent.com",
+	});
+	const { email_verfied, name, email } = response.payload;
+	console.log(response.payload);
+	if (email_verfied) {
+		User.findOne(email).exec((err, user) => {
+			if (err) {
+				return res.status(400).json({
+					error: "This user doesn't exist, Signup First",
+				});
+			} else {
+				if (user) {
+					const token = jwt.sign(
+						{ _id: user._id },
+						process.env.JWT_SIGNIN_KEY,
+						{ expiresIn: "7d" },
+					);
+					const { _id, name, email } = user;
+					res.json({
+						token,
+						user: { _id, name, email },
+					});
+				} else {
+					let password = email + process.env.JWT_SIGNIN_KEY;
+
+					let newUser = new User({ name, email, password });
+					newUser.save((err, data) => {
+						if (err) {
+							return res.status(400).json({
+								error: "Something Wrong....",
+							});
+						}
+						const token = jwt.sign(
+							{ _id: data._id },
+							process.env.JWT_SIGNIN_KEY,
+							{ expiresIn: "7d" },
+						);
+						const { _id, name, email } = newUser;
+						res.json({
+							token,
+							user: { _id, name, email },
+						});
+					});
+				}
+			}
+		});
+	}
+};
 //@desc Get All Goals
 //@route GET/api/allgoals
 //@access PUBLIC
@@ -348,5 +409,6 @@ module.exports = {
 	verifyEmail,
 	forgotPassword,
 	passwordReset,
+	googleLogin,
 	getAllUsers,
 };

@@ -14,6 +14,10 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use("/api/test", require("./routes/testRoutes"));
 app.use("/api/users", require("./routes/userRoutes"));
+app.use("/api/contact", require("./routes/contactRoutes"));
+app.use("/api/setting", require("./routes/settingRoutes"));
+
+
 // app.use("/api/allGoals",require('./routes/goalRoutes'))
 
 app.use(errorHandler);
