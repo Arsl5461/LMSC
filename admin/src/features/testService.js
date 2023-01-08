@@ -12,9 +12,15 @@ const getTests = async () => {
 	const response = await axios.get(API_URl + "gettest");
 	return response.data;
 };
+// Delete Tests
+const deleteTests = async (id) => {
+	const response = await axios.delete(API_URl + `deletetest/${id}`);
+	return response.data;
+};
 const createTest = {
 	createTests,
 	getTests,
+	deleteTests,
 };
 
 export default createTest;

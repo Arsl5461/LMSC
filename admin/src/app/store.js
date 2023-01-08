@@ -3,8 +3,7 @@ import userreducer from "../features/registerUserSlice";
 import testreducer from "../features/testSlice";
 import contactreducer from "../features/contactSlice";
 import settingreducer from "../features/settingSlice";
-
-
+import bookingreducer from "../features/bookingsSlice";
 
 export const store = configureStore({
 	reducer: {
@@ -12,7 +11,6 @@ export const store = configureStore({
 		test: testreducer,
 		contact: contactreducer,
 		setting: settingreducer,
-
-
+		booking: bookingreducer,
 	},
 });

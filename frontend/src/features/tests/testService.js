@@ -4,6 +4,7 @@ const API_URL = "http://localhost:5000/api/test";
 
 const getAllTests = async () => {
 	const response = await axios.get(API_URL + "/getTest");
+
 	return response.data;
 };
 const viewAllTests = async () => {
@@ -11,7 +12,6 @@ const viewAllTests = async () => {
 	return response.data;
 };
 const getTest = async (id) => {
-	console.log(id);
 	const response = await axios.get(API_URL + `/getTestDetail/${id}`);
 	return response.data;
 };

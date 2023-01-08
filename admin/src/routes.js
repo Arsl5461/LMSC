@@ -21,6 +21,7 @@ import CreateTest from "views/CreateTest.js";
 import TableList from "views/TableList.js";
 import ContactList from "views/ContactList";
 import Setting from "views/Setting";
+import Bookings from "./views/Bookings";
 
 import Typography from "views/Typography.js";
 import Icons from "views/Icons.js";
@@ -54,6 +55,13 @@ const dashboardRoutes = [
 		name: "Create Tests",
 		icon: "nc-icon nc-notes",
 		component: CreateTest,
+		layout: "/admin",
+	},
+	{
+		path: "/test/bookings",
+		name: "Bookings",
+		icon: "nc-icon nc-notes",
+		component: Bookings,
 		layout: "/admin",
 	},
 

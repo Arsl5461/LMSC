@@ -58,7 +58,7 @@ const registerUser = asyncHandler(async (req, res) => {
 		from: '"verify your email" <arsltech337@gmail.com>',
 		to: user.email,
 		subject: "Labortory System -verify your email",
-		html: `<h2>${user.name}! Thanks for registering on our site</h2>
+		html: `<h2>${user.name.toUpperCase()}! Thanks for registering on our site</h2>
   <h4>Please Verify your email to continue...</h4>
   <a href="http://${req.headers.host}/api/users/verify-email?token=${user.emailToken}">Verify Your Email</a>`,
 	};

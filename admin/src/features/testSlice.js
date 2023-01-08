@@ -39,6 +39,23 @@ export const getAllTest = createAsyncThunk(
 		}
 	},
 );
+export const deleteTests = createAsyncThunk(
+	"deleteTests",
+	async (id, thunkAPI) => {
+		try {
+			console.log(id, "Slice");
+			return await testService.deleteTests(id);
+		} catch (error) {
+			const message =
+				(error.message &&
+					error.response.data &&
+					error.response.data.message) ||
+				error.message ||
+				error.toString();
+			return thunkAPI.rejectWithValue(message);
+		}
+	},
+);
 
 export const testsSlice = createSlice({
 	name: "tests",
@@ -72,6 +89,22 @@ export const testsSlice = createSlice({
 				state.isSuccess = true;
 			})
 			.addCase(getAllTest.rejected, (state, action) => {
+				state.isError = true;
+				state.isLoading = false;
+				state.message = action.payload;
+			})
+			.addCase(deleteTests.pending, (state) => {
+				state.isLoading = true;
+			})
+			.addCase(deleteTests.fulfilled, (state, action) => {
+				state.isLoading = false;
+				state.isError = false;
+				state.tests = state.tests.filter(
+					(test) => test._id !== action.payload.id,
+				);
+				state.isSuccess = true;
+			})
+			.addCase(deleteTests.rejected, (state, action) => {
 				state.isError = true;
 				state.isLoading = false;
 				state.message = action.payload;

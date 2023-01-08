@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 // import  useNavigate  from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { createNewTest, getAllTest, reset } from "../features/testSlice";
+import { createNewTest, getAllTest, reset,deleteTests } from "../features/testSlice";
 // react-bootstrap components
 import {
 	Badge,
@@ -40,6 +40,9 @@ function CreateTest() {
 		setPrice("");
 		setDescription("");
 	};
+	const handleDelete=(id)=>{
+		dispatch(deleteTests(id))
+	}
 
 	return (
 		<>
@@ -168,6 +171,7 @@ function CreateTest() {
 															className="btn-fill pull-right mt-3"
 															type="submit"
 															variant="info"
+															onClick={()=>handleDelete(item._id)}
 														>
 															Delete
 														</Button>

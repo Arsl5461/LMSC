@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const Tests = require("../model/testModel");
+const User = require("../model/userModel");
 
 //@desc Get Goals
 //@route GET/api/goals
@@ -14,8 +15,8 @@ const Tests = require("../model/testModel");
 //@access PUBLIC
 const options = {
 	// sort matched documents in descending order by rating
-	sort: { "createdAt": -1 },
-  };
+	sort: { createdAt: -1 },
+};
 const getTests = asyncHandler(async (req, res) => {
 	const test = await Tests.find(options).limit(3);
 
@@ -26,10 +27,10 @@ const getAllTests = asyncHandler(async (req, res) => {
 
 	res.status(200).json(test);
 });
-const getTestDetails=asyncHandler(async(req,res)=>{
-	const test=await Tests.findOne({_id:req.params.id})
-	res.status(200).json(test)
-})
+const getTestDetails = asyncHandler(async (req, res) => {
+	const test = await Tests.findOne({ _id: req.params.id });
+	res.status(200).json(test);
+});
 //@desc Set Goals
 //@route PUSH/api/goals
 //@access PRIVATE
@@ -96,32 +97,32 @@ const setTests = asyncHandler(async (req, res) => {
 //@route Delete/api/goals:id
 //@access PRIVATE
 
-// const deleteGoals=asyncHandler(async(req,res)=>{
-//     const goal=await Goals.findById(req.params.id)
+const deleteTests = asyncHandler(async (req, res) => {
+	const test = await Tests.findById(req.params.id);
 
-//     if(!goal){
-//         res.status(400)
-//         throw new Error ("Goal Not Found")
-//     }
-//     //Check for user
-//     if(!req.user){
-//         res.status(401)
-//         throw new error("User not Found")
-//     }
+	if (!test) {
+		res.status(400);
+		throw new Error("Goal Not Found");
+	}
+	await test.remove();
+	res.json("Test Deleted Successfully!");
+	//Check for user
+	// if (!req.user) {
+	// 	res.status(401);
+	// 	throw new error("User not Found");
+	// }
 
-//     //Make sure the logged in user
-//     if(goal.user.toString() !== req.user.id){
-//         res.status(401)
-//         throw new error("User not Found")
-
-//     }
-//     await goal.remove()
-//     res.json({id:req.params.id})
-// })
+	//Make sure the logged in user
+	// if (goal.user.toString() !== req.user.id) {
+	// 	res.status(401);
+	// 	throw new error("User not Found");
+	// }
+});
 
 module.exports = {
 	setTests,
 	getTests,
 	getAllTests,
-	getTestDetails
+	getTestDetails,
+	deleteTests,
 };

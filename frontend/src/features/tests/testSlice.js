@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import testService from "../tests/testService";
 const initialState = {
 	tests: [],
+	test: [],
 	isLoading: false,
 	isError: false,
 	message: "",
@@ -93,7 +94,7 @@ export const testsSlice = createSlice({
 			.addCase(getTestDetail.fulfilled, (state, action) => {
 				state.isLoading = false;
 				state.isError = false;
-				state.tests = action.payload;
+				state.test = action.payload;
 			})
 			.addCase(getTestDetail.rejected, (state, action) => {
 				state.isError = true;
