@@ -15,7 +15,7 @@ const { protect, verifyEmaill } = require("../middleware/authMiddleware");
 router.post("/", registerUser);
 router.post("/login", loginUser);
 router.post("/requestPasswordReset", forgotPassword);
-router.post("/googlelogin", googleLogin);
+// router.post("/googlelogin", googleLogin);
 
 router.post("/resetPassword", passwordReset);
 router.get("/verify-email", verifyEmail);

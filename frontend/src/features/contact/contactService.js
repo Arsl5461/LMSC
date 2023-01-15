@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URl = "http://localhost:5000/api/contact/setcontact";
+const API_URl = "http://localhost:8000/api/contact/setcontact";
 
 const contact = async (contactData) => {
 	const response = await axios.post(API_URl, contactData);

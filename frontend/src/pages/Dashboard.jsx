@@ -3,7 +3,7 @@ import {useNavigate} from "react-router-dom"
 import {useSelector,useDispatch} from "react-redux"
 import GoalForm from '../components/GoalForm'
 import GoalItem from '../components/GoalItem'
-import { getGoals,reset } from '../features/goals/goalSlice'
+import { getUserTests,reset } from '../features/userTest/userTestSlice'
 
 function Dashboard() {
   const navigate=useNavigate()
@@ -11,9 +11,10 @@ function Dashboard() {
 
 
   const {user}=useSelector((state)=>state.auth)
-  const {goals,isLoading,isError,isSuccess,message}=useSelector((state)=>state.goals)
+    const {tests,isLoading,isError,isSuccess,message}=useSelector((state)=>state.usertest)
 
 
+    console.log(user);
 
 
   useEffect(()=>{
@@ -23,22 +24,22 @@ function Dashboard() {
     if(!user){
       navigate("/")
     }
-    dispatch(getGoals())
+    dispatch(getUserTests())
 
 
   
   },[user,navigate,isError,message,dispatch])
   return (
    <section className="heading">
-    <h1>Welcome  {user && user.name}</h1>
-   {goals.length > 0 ? (
+    <h1>Welcome  {user.name}</h1>
+   {tests.length > 0 ? (
     <div className='goals'>
-    {goals.map((goal)=>(
+    {tests.map((goal)=>(
     <GoalItem key={goal._id} goal={goal}/>
    ))}
    </div>
    ):
-    ("There are No Goals")}
+    ("There are No Recent Tests")}
    </section>
   )
 }

@@ -68,7 +68,7 @@ dispatch(deleteBookings(id));
 													<td>{item?.bookingtest}</td>
 
 													<td>{item?.bookingdate}</td>
-													<td>{item?.bookingtime}</td>
+													<td>{item?.bookingtime + ":00"}</td>
                                                     <td><button className="btn btn-success text-dark">Approve</button></td>
                                                     <td><button className="btn btn-danger text-dark" onClick={()=>handleDelete(item?._id)}>Delete</button></td>
 

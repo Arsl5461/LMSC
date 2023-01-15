@@ -18,15 +18,10 @@ function Register() {
     const navigate=useNavigate()
     const dispatch=useDispatch()
 
-    const {user,isLoading,isSuccess,isError,message}=useSelector((state)=>state.auth)
+    const {user,registerUser,isLoading,isSuccess,isError,message}=useSelector((state)=>state.auth)
 
-    useEffect(()=>{
-        if(isError){
-            toast.error(message)
-        }
-      
-dispatch(reset())
-    },[user,isSuccess,isError,message,dispatch,navigate])
+
+    dispatch(reset())
     const onChange=(e)=>{
 setFormData((prevstate)=>({
     ...prevstate,
@@ -47,13 +42,13 @@ else{
         phone,
         city
     }
+    
+    dispatch(register(userData))
     toast.success("User Registered Successfuly..Please Check your email.",{
         position:'bottom-left'
     })
-    dispatch(register(userData))
-    
-    dispatch(reset())
 }
+dispatch(reset())
     }
     if(isLoading){
         <h1>Loading....</h1>

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URl = "http://localhost:5000/api/booking/setbooking";
+const API_URl = "http://localhost:8000/api/booking/setbooking";
 
 const setBooking = async (contactData) => {
     console.log(contactData);

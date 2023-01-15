@@ -44,7 +44,6 @@ function Navbar() {
             <Link to="/register">SignUp</Link>
         </li>
     </>}
-       
     </ul>
    </div>
   )

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URl = "http://localhost:5000/api/users/";
+const API_URl = "http://localhost:8000/api/users/";
 
 //REGISTER USER
 
@@ -9,7 +9,7 @@ const register = async (userData) => {
 	const response = await axios.post(API_URl, userData);
 	return response.data;
 };
-//REGISTER USER
+//LOGIN USER
 
 const login = async (userData) => {
 	const response = await axios.post(API_URl + "login", userData);

@@ -5,6 +5,7 @@ import contactReducer from "../features/contact/contactSlice";
 import aboutReducer from "../features/about/aboutSlice";
 import testReducer from "../features/tests/testSlice";
 import bookingreducer from "../features/booking/bookingSlice";
+import usertestreducer from "../features/userTest/userTestSlice";
 export const store = configureStore({
 	reducer: {
 		auth: authreducer,
@@ -13,5 +14,6 @@ export const store = configureStore({
 		about: aboutReducer,
 		test: testReducer,
 		booking: bookingreducer,
+		usertest: usertestreducer
 	},
 });

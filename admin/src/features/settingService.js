@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URl = "http://localhost:5000/api/setting/";
+const API_URl = "http://localhost:8000/api/setting/";
 
 // Create Tests
 const createSettings = async (settingData) => {

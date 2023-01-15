@@ -12,6 +12,7 @@ import Contact from "./pages/Contact";
 import AllTest from "./components/AllTest";
 import TestDetails from "./components/TestDetails";
 import "./Lab.css";
+import BookTest from "./components/BookTest";
 
 function App() {
 	return (
@@ -35,6 +36,10 @@ function App() {
 							element={<TestDetails />}
 						></Route>
 						<Route path="/test/all" element={<AllTest />}></Route>
+						<Route
+							path="/booktest/:id"
+							element={<BookTest />}
+						></Route>
 					</Routes>
 					<Footer />
 				</Router>
